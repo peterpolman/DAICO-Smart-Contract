@@ -8,7 +8,7 @@ contract SafeMath {
     /**
     * @dev constructor
     */
-    function SafeMath() public {
+    constructor() public {
     }
 
     function safeMul(uint256 a, uint256 b) internal pure returns (uint256) {

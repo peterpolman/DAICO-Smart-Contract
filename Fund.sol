@@ -54,7 +54,7 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
      * @param _advisorTokenWallet Advisor wallet address
      * @param _owners Contract owners
      */
-    function Fund(
+    constructor(
         address _teamWallet,
         address _referralTokenWallet,
         address _foundationTokenWallet,
@@ -144,7 +144,7 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
         contributions[msg.sender] = 0;
         token.destroy(msg.sender, token.balanceOf(msg.sender));
         msg.sender.transfer(refundAmount);
-        RefundContributor(msg.sender, refundAmount, now);
+        emit RefundContributor(msg.sender, refundAmount, now);
     }
 
     /**
@@ -159,7 +159,7 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
         contributions[contributorAddress] = 0;
         token.destroy(contributorAddress, token.balanceOf(contributorAddress));
         contributorAddress.transfer(refundAmount);
-        RefundContributor(contributorAddress, refundAmount, now);
+        emit RefundContributor(contributorAddress, refundAmount, now);
     }
 
     /**
@@ -192,7 +192,7 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
         uint256 amount = firstWithdrawAmount;
         firstWithdrawAmount = 0;
         teamWallet.transfer(amount);
-        Withdraw(amount, now);
+        emit Withdraw(amount, now);
     }
 
     /**
@@ -203,7 +203,7 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
         uint256 amount = calcTapAmount();
         lastWithdrawTime = now;
         teamWallet.transfer(amount);
-        Withdraw(amount, now);
+        emit Withdraw(amount, now);
     }
 
     // Refund
@@ -220,7 +220,7 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
         token.destroy(bountyTokenWallet, token.balanceOf(bountyTokenWallet));
         token.destroy(referralTokenWallet, token.balanceOf(referralTokenWallet));
         token.destroy(advisorTokenWallet, token.balanceOf(advisorTokenWallet));
-        RefundEnabled(msg.sender);
+        emit RefundEnabled(msg.sender);
     }
 
     /**
@@ -238,6 +238,6 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
         token.destroy(msg.sender, tokenBalance);
         msg.sender.transfer(refundAmount);
 
-        RefundHolder(msg.sender, refundAmount, tokenBalance, now);
+        emit RefundHolder(msg.sender, refundAmount, tokenBalance, now);
     }
 }

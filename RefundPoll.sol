@@ -17,7 +17,7 @@ contract RefundPoll is BasePoll {
      * @param _startTime Poll start time
      * @param _endTime Poll end time
      */
-    function RefundPoll(
+    constructor(
         address _tokenAddress,
         address _fundAddress,
         uint256 _startTime,

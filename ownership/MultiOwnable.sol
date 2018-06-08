@@ -21,7 +21,7 @@ contract MultiOwnable {
     /**
      * @dev MultiOwnable constructor sets the manager
      */
-    function MultiOwnable() public {
+    constructor() public {
         manager = msg.sender;
     }
 
@@ -44,7 +44,7 @@ contract MultiOwnable {
             ownerByAddress[_owners[j]] = true;
         }
         owners = _owners;
-        SetOwners(_owners);
+        emit SetOwners(_owners);
     }
 
     function getOwners() public constant returns (address[]) {

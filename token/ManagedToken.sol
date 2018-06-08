@@ -35,7 +35,7 @@ contract ManagedToken is ERC20Token, MultiOwnable {
      * @param _listener Token listener(address can be 0x0)
      * @param _owners Owners list
      */
-    function ManagedToken(address _listener, address[] _owners) public {
+    constructor(address _listener, address[] _owners) public {
         if(_listener != address(0)) {
             eventListener = ITokenEventListener(_listener);
         }
@@ -48,7 +48,7 @@ contract ManagedToken is ERC20Token, MultiOwnable {
      */
     function setAllowTransfers(bool _allowTransfers) external onlyOwner {
         allowTransfers = _allowTransfers;
-        AllowTransfersChanged(_allowTransfers);
+        emit AllowTransfersChanged(_allowTransfers);
     }
 
     /**
@@ -94,8 +94,8 @@ contract ManagedToken is ERC20Token, MultiOwnable {
     function issue(address _to, uint256 _value) external onlyOwner canIssue {
         totalSupply = safeAdd(totalSupply, _value);
         balances[_to] = safeAdd(balances[_to], _value);
-        Issue(_to, _value);
-        Transfer(address(0), _to, _value);
+        emit Issue(_to, _value);
+        emit Transfer(address(0), _to, _value);
     }
 
     /**
@@ -109,8 +109,8 @@ contract ManagedToken is ERC20Token, MultiOwnable {
         require(balances[_from] >= _value);
         totalSupply = safeSub(totalSupply, _value);
         balances[_from] = safeSub(balances[_from], _value);
-        Transfer(_from, address(0), _value);
-        Destroy(_from, _value);
+        emit Transfer(_from, address(0), _value);
+        emit Destroy(_from, _value);
     }
 
     /**
@@ -125,7 +125,7 @@ contract ManagedToken is ERC20Token, MultiOwnable {
      */
     function increaseApproval(address _spender, uint _addedValue) public returns (bool) {
         allowed[msg.sender][_spender] = safeAdd(allowed[msg.sender][_spender], _addedValue);
-        Approval(msg.sender, _spender, allowed[msg.sender][_spender]);
+        emit Approval(msg.sender, _spender, allowed[msg.sender][_spender]);
         return true;
     }
 
@@ -146,7 +146,7 @@ contract ManagedToken is ERC20Token, MultiOwnable {
         } else {
             allowed[msg.sender][_spender] = safeSub(oldValue, _subtractedValue);
         }
-        Approval(msg.sender, _spender, allowed[msg.sender][_spender]);
+        emit Approval(msg.sender, _spender, allowed[msg.sender][_spender]);
         return true;
     }
 
@@ -156,7 +156,7 @@ contract ManagedToken is ERC20Token, MultiOwnable {
      */
     function finishIssuance() public onlyOwner returns (bool) {
         issuanceFinished = true;
-        IssuanceFinished();
+        emit IssuanceFinished();
         return true;
     }
 }

@@ -48,7 +48,7 @@ contract PollManagedFund is Fund, DateTime, ITokenEventListener {
      * @dev PollManagedFund constructor
      * params - see Fund constructor
      */
-    function PollManagedFund(
+    constructor(
         address _teamWallet,
         address _referralTokenWallet,
         address _foundationTokenWallet,
@@ -112,7 +112,7 @@ contract PollManagedFund is Fund, DateTime, ITokenEventListener {
         uint256 startTime = now;
         uint256 endTime = startTime + TAP_POLL_DURATION;
         tapPoll = new TapPoll(_tap, token, this, startTime, endTime, minVotedTokensPerc);
-        TapPollCreated();
+        emit TapPollCreated();
     }
 
     function onTapPollFinish(bool agree, uint256 _tap) external {
@@ -121,7 +121,7 @@ contract PollManagedFund is Fund, DateTime, ITokenEventListener {
             tap = _tap;
         }
         updateMinVotedTokens(tapPoll.getVotedTokensPerc());
-        TapPollFinished(agree, _tap);
+        emit TapPollFinished(agree, _tap);
         delete tapPoll;
     }
 
@@ -161,7 +161,7 @@ contract PollManagedFund is Fund, DateTime, ITokenEventListener {
             );
         }
         refundPoll = new RefundPoll(token, this, startTime, endTime, holdEndTime, isFirstRefund);
-        RefundPollCreated();
+        emit RefundPollCreated();
     }
 
     function onRefundPollFinish(bool agree) external {
@@ -182,7 +182,7 @@ contract PollManagedFund is Fund, DateTime, ITokenEventListener {
             secondRefundPollDate = 0;
             isWithdrawEnabled = true;
         }
-        RefundPollFinished(agree);
+        emit RefundPollFinished(agree);
 
         delete refundPoll;
     }

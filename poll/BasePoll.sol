@@ -48,7 +48,7 @@ contract BasePoll is SafeMath {
      * @param _startTime Poll start time
      * @param _endTime Poll end time
      */
-    function BasePoll(address _tokenAddress, address _fundAddress, uint256 _startTime, uint256 _endTime, bool _checkTransfersAfterEnd) public {
+    constructor(address _tokenAddress, address _fundAddress, uint256 _startTime, uint256 _endTime, bool _checkTransfersAfterEnd) public {
         require(_tokenAddress != address(0));
         require(_startTime >= now && _endTime > _startTime);
 

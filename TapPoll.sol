@@ -21,7 +21,7 @@ contract TapPoll is BasePoll {
      * @param _endTime Poll end time
      * @param _minTokensPerc - Min percent of tokens from totalSupply where poll is considered to be fulfilled
      */
-    function TapPoll(
+    constructor(
         uint256 _tap,
         address _tokenAddress,
         address _fundAddress,

@@ -26,7 +26,7 @@ contract LockedTokens is SafeMath {
      * @param _token ERC20 compatible token contract
      * @param _crowdsaleAddress Crowdsale contract address
      */
-    function LockedTokens(IERC20Token _token, address _crowdsaleAddress) public {
+    constructor(IERC20Token _token, address _crowdsaleAddress) public {
         token = _token;
         crowdsaleAddress = _crowdsaleAddress;
     }
@@ -52,7 +52,7 @@ contract LockedTokens is SafeMath {
             if(!walletTokens[msg.sender][i].released && now >= walletTokens[msg.sender][i].lockEndTime) {
                 walletTokens[msg.sender][i].released = true;
                 token.transfer(msg.sender, walletTokens[msg.sender][i].amount);
-                TokensUnlocked(msg.sender, walletTokens[msg.sender][i].amount);
+                emit TokensUnlocked(msg.sender, walletTokens[msg.sender][i].amount);
             }
         }
     }
