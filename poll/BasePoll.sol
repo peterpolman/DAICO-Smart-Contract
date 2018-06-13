@@ -69,7 +69,7 @@ contract BasePoll is SafeMath {
 
         uint256 voiceWeight = token.balanceOf(msg.sender);
         uint256 maxVoiceWeight = safeDiv(token.totalSupply(), MAX_TOKENS_WEIGHT_DENOM);
-        voiceWeight =  voiceWeight <= maxVoiceWeight ? voiceWeight : maxVoiceWeight;
+        voiceWeight = voiceWeight <= maxVoiceWeight ? voiceWeight : maxVoiceWeight;
 
         if(agree) {
             yesCounter = safeAdd(yesCounter, voiceWeight);

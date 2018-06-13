@@ -4,7 +4,7 @@ import './token/TransferLimitedToken.sol';
 
 
 contract OpenSocialCoin is TransferLimitedToken {
-    uint256 public constant SALE_END_TIME = 1529138184; // Sat, 16 Jun 2018 10:36:24 +0200
+    uint256 public constant SALE_END_TIME = 1538344800; // Mon, 01 Oct 2018 00:00:00 +0200
 
     constructor(address _listener, address[] _owners, address manager) public
         TransferLimitedToken(SALE_END_TIME, _listener, _owners, manager)
