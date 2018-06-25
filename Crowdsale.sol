@@ -60,8 +60,8 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
     mapping(address => uint256) public privateContributions;
 
     address public bnbTokenWallet;
-    address public referralTokenWallet;
-    address public foundationTokenWallet;
+    address public crowdsaleTokenWallet;
+    address public grantsTokenWallet;
     address public advisorsTokenWallet;
     address public companyTokenWallet;
     address public reserveTokenWallet;
@@ -126,8 +126,8 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
         address fundAddress,
         address reservationFundAddress,
         address _bnbTokenWallet,
-        address _referralTokenWallet,
-        address _foundationTokenWallet,
+        address _crowdsaleTokenWallet,
+        address _grantsTokenWallet,
         address _advisorsTokenWallet,
         address _companyTokenWallet,
         address _reserveTokenWallet,
@@ -145,8 +145,8 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
         reservationFund = ICrowdsaleReservationFund(reservationFundAddress);
 
         bnbTokenWallet = _bnbTokenWallet;
-        referralTokenWallet = _referralTokenWallet;
-        foundationTokenWallet = _foundationTokenWallet;
+        crowdsaleTokenWallet = _crowdsaleTokenWallet;
+        grantsTokenWallet = _grantsTokenWallet;
         advisorsTokenWallet = _advisorsTokenWallet;
         companyTokenWallet = _companyTokenWallet;
         reserveTokenWallet = _reserveTokenWallet;
@@ -527,28 +527,28 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
             bnbWithdrawEnabled = true;
 
             // Referral
-            uint256 referralTokenAmount = safeDiv(rawTokenSupply, 10);
-            token.issue(referralTokenWallet, referralTokenAmount);
-
-            // Foundation
-            uint256 foundationTokenAmount = safeDiv(token.totalSupply(), 2); // 20%
-            token.issue(address(lockedTokens), foundationTokenAmount);
-            lockedTokens.addTokens(foundationTokenWallet, foundationTokenAmount, now + 365 days);
+            uint256 crowdsaleTokenAmount = safeDiv(rawTokenSupply, 10); // 60%
+            token.issue(crowdsaleTokenWallet, crowdsaleTokenAmount);
             uint256 suppliedTokenAmount = token.totalSupply();
 
-            // Reserve
-            uint256 reservedTokenAmount = safeDiv(safeMul(suppliedTokenAmount, 3), 10); // 18%
-            token.issue(address(lockedTokens), reservedTokenAmount);
-            lockedTokens.addTokens(reserveTokenWallet, reservedTokenAmount, now + 183 days);
-
-            // Advisors
-            uint256 advisorsTokenAmount = safeDiv(suppliedTokenAmount, 10); // 6%
-            token.issue(advisorsTokenWallet, advisorsTokenAmount);
-
             // Company
-            uint256 companyTokenAmount = safeDiv(suppliedTokenAmount, 4); // 15%
+            uint256 companyTokenAmount = safeDiv(suppliedTokenAmount, 6); // 10%
             token.issue(address(lockedTokens), companyTokenAmount);
             lockedTokens.addTokens(companyTokenWallet, companyTokenAmount, now + 730 days);
+
+            // Reserve
+            uint256 reservedTokenAmount = safeMul(safeDiv(suppliedTokenAmount, 12), 5); // 25%
+            token.issue(address(lockedTokens), reservedTokenAmount);
+            lockedTokens.addTokens(reserveTokenWallet, reservedTokenAmount, now + 274 days);
+
+            // Advisors
+            uint256 advisorsTokenAmount = safeDiv(suppliedTokenAmount, 30); // 2%
+            token.issue(advisorsTokenWallet, advisorsTokenAmount);
+
+            // Foundation
+            uint256 grantsTokenAmount = safeDiv(suppliedTokenAmount, 30); // 2%
+            token.issue(address(lockedTokens), grantsTokenAmount);
+            lockedTokens.addTokens(grantsTokenWallet, grantsTokenAmount, now + 365 days);
 
             // Bounty
             uint256 bountyTokenAmount = safeDiv(suppliedTokenAmount, 60); // 1%

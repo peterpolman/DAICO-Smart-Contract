@@ -23,8 +23,8 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
     address public teamWallet;
     uint256 public crowdsaleEndDate;
 
-    address public referralTokenWallet;
-    address public foundationTokenWallet;
+    address public crowdsaleTokenWallet;
+    address public grantsTokenWallet;
     address public reserveTokenWallet;
     address public bountyTokenWallet;
     address public companyTokenWallet;
@@ -47,7 +47,7 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
     /**
      * @dev Fund constructor
      * @param _teamWallet Withdraw functions transfers ether to this address
-     * @param _referralTokenWallet Referral wallet address
+     * @param _crowdsaleTokenWallet Crowdsale wallet address
      * @param _companyTokenWallet Company wallet address
      * @param _reserveTokenWallet Reserve wallet address
      * @param _bountyTokenWallet Bounty wallet address
@@ -56,8 +56,8 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
      */
     constructor(
         address _teamWallet,
-        address _referralTokenWallet,
-        address _foundationTokenWallet,
+        address _crowdsaleTokenWallet,
+        address _grantsTokenWallet,
         address _companyTokenWallet,
         address _reserveTokenWallet,
         address _bountyTokenWallet,
@@ -67,8 +67,8 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
     ) public
     {
         teamWallet = _teamWallet;
-        referralTokenWallet = _referralTokenWallet;
-        foundationTokenWallet = _foundationTokenWallet;
+        crowdsaleTokenWallet = _crowdsaleTokenWallet;
+        grantsTokenWallet = _grantsTokenWallet;
         companyTokenWallet = _companyTokenWallet;
         reserveTokenWallet = _reserveTokenWallet;
         bountyTokenWallet = _bountyTokenWallet;
@@ -216,9 +216,9 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
         token.destroy(lockedTokenAddress, token.balanceOf(lockedTokenAddress));
         token.destroy(companyTokenWallet, token.balanceOf(companyTokenWallet));
         token.destroy(reserveTokenWallet, token.balanceOf(reserveTokenWallet));
-        token.destroy(foundationTokenWallet, token.balanceOf(foundationTokenWallet));
+        token.destroy(grantsTokenWallet, token.balanceOf(grantsTokenWallet));
         token.destroy(bountyTokenWallet, token.balanceOf(bountyTokenWallet));
-        token.destroy(referralTokenWallet, token.balanceOf(referralTokenWallet));
+        token.destroy(crowdsaleTokenWallet, token.balanceOf(crowdsaleTokenWallet));
         token.destroy(advisorTokenWallet, token.balanceOf(advisorTokenWallet));
         emit RefundEnabled(msg.sender);
     }
