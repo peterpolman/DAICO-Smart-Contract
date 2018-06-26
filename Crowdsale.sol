@@ -457,16 +457,7 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
         uint256 tokenAmount = safeDiv(safeMul(amount, tokenPriceNum), tokenPriceDenom);
         rawTokenSupply = safeAdd(rawTokenSupply, tokenAmount);
 
-        if(bonusNum > 0) {
-            tokenBonusAmount = safeDiv(safeMul(tokenAmount, bonusNum), bonusDenom);
-        }
-
-        if(additionalBonusOwnerState[contributor] ==  AdditionalBonusState.Active) {
-            additionalBonusOwnerState[contributor] = AdditionalBonusState.Applied;
-            uint256 additionalBonus = safeDiv(safeMul(tokenAmount, ADDITIONAL_BONUS_NUM), ADDITIONAL_BONUS_DENOM);
-            tokenBonusAmount = safeAdd(tokenBonusAmount, additionalBonus);
-            additionalBonusApplied = true;
-        }
+        tokenBonusAmount = safeDiv(safeMul(tokenAmount, bonusNum), bonusDenom);
 
         processPayment(contributor, amount, tokenAmount, tokenBonusAmount, additionalBonusApplied);
     }
