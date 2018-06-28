@@ -35,14 +35,14 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
     uint256 public constant PRIVATE_SALE_START_TIME = 1532296800; // Mon, 23 Jul 2018 00:00:00 +0200
     uint256 public constant PRIVATE_SALE_END_TIME = 1533506400; // Mon, 06 Aug 2018 00:00:00 +0200
 
-    uint256 public constant BONUS_WINDOW_1_END_TIME = SALE_START_TIME + 2 days;
-    uint256 public constant BONUS_WINDOW_2_END_TIME = SALE_START_TIME + 7 days;
-    uint256 public constant BONUS_WINDOW_3_END_TIME = SALE_START_TIME + 14 days;
+    uint256 public constant BONUS_WINDOW_1_END_TIME = SALE_START_TIME + 7 days;
+    uint256 public constant BONUS_WINDOW_2_END_TIME = SALE_START_TIME + 14 days;
+    uint256 public constant BONUS_WINDOW_3_END_TIME = SALE_START_TIME + 21 days;
     uint256 public constant BONUS_WINDOW_4_END_TIME = SALE_START_TIME + 21 days;
 
     uint256 public constant MAX_CONTRIB_CHECK_END_TIME = SALE_START_TIME + 1 days;
 
-    uint256 public constant BNB_TOKEN_PRICE_NUM = 910;
+    uint256 public constant BNB_TOKEN_PRICE_NUM = 300;
     uint256 public constant BNB_TOKEN_PRICE_DENOM = 1;
 
     uint256 public tokenPriceNum = 0;
@@ -277,16 +277,14 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
      */
     function getBonus() internal constant returns (uint256, uint256) {
         uint256 numerator = 0;
-        uint256 denominator = 100;
+        uint256 denominator = 1000;
 
         if(now < BONUS_WINDOW_1_END_TIME) {
-            numerator = 25;
+            numerator = 100;
         } else if(now < BONUS_WINDOW_2_END_TIME) {
-            numerator = 15;
+            numerator = 75;
         } else if(now < BONUS_WINDOW_3_END_TIME) {
-            numerator = 10;
-        } else if(now < BONUS_WINDOW_4_END_TIME) {
-            numerator = 5;
+            numerator = 50;
         } else {
             numerator = 0;
         }
