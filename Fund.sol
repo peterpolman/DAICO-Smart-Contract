@@ -119,7 +119,7 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
     function onCrowdsaleEnd() external onlyCrowdsale {
         state = FundState.TeamWithdraw;
         ISimpleCrowdsale crowdsale = ISimpleCrowdsale(crowdsaleAddress);
-        firstWithdrawAmount = safeDiv(crowdsale.getSoftCap(), 2);
+        firstWithdrawAmount = safeDiv(crowdsale.getTotalEtherContributed(), 10);
         lastWithdrawTime = now;
         tap = INITIAL_TAP;
         crowdsaleEndDate = now;

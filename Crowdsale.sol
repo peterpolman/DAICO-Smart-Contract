@@ -256,6 +256,13 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
     }
 
     /**
+     * @dev Get total Ether contributed
+     **/
+    function getTotalEtherContributed() external view returns(uint256) {
+      return totalEtherContributed;
+    }
+
+    /**
      * @dev Check bnb contribution time, amount and hard cap overflow
      */
     function isValidBNBContribution() internal view returns(bool) {
