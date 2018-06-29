@@ -449,7 +449,7 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
      */
     function processPrivateSaleContribution(address contributor, uint256 amount) private checkPrivateSaleTime checkContribution checkPrivateSaleCap {
         bool additionalBonusApplied = false;
-        uint256 bonusNum = 20; // translates into 20% more tokens for the amount of ETH
+        uint256 bonusNum = 25; // translates into 25% more tokens for the amount of ETH
         uint256 bonusDenom = 100;
         uint256 tokenBonusAmount = 0;
 
