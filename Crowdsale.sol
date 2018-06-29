@@ -41,8 +41,8 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
 
     uint256 public constant MAX_CONTRIB_CHECK_END_TIME = SALE_START_TIME + 1 days;
 
-    uint256 public constant BNB_TOKEN_PRICE_NUM = 300;
-    uint256 public constant BNB_TOKEN_PRICE_DENOM = 1;
+    uint256 public bnbTokenPriceNum = 0;
+    uint256 public bnbTokenPriceDenom = 0;
 
     uint256 public tokenPriceNum = 0;
     uint256 public tokenPriceDenom = 0;
@@ -212,11 +212,13 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
     /**
      * @dev Set token price once before start of crowdsale
      */
-    function setTokenPrice(uint256 _tokenPriceNum, uint256 _tokenPriceDenom) public onlyOwner {
+    function setTokenPrice(uint256 _tokenPriceNum, uint256 _tokenPriceDenom, uint256 _bnbTokenPriceNum, uint256 _bnbTokenPriceDenom) public onlyOwner {
         require(tokenPriceNum == 0 && tokenPriceDenom == 0);
         require(_tokenPriceNum > 0 && _tokenPriceDenom > 0);
         tokenPriceNum = _tokenPriceNum;
         tokenPriceDenom = _tokenPriceDenom;
+        bnbTokenPriceNum = _bnbTokenPriceNum;
+        bnbTokenPriceDenom = _bnbTokenPriceDenom;
     }
 
     /**
@@ -395,7 +397,7 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
         bnbContributions[msg.sender] = safeAdd(bnbContributions[msg.sender], amountBNB);
 
         uint256 tokenBonusAmount = 0;
-        uint256 tokenAmount = safeDiv(safeMul(amountBNB, BNB_TOKEN_PRICE_NUM), BNB_TOKEN_PRICE_DENOM);
+        uint256 tokenAmount = safeDiv(safeMul(amountBNB, bnbTokenPriceNum), bnbTokenPriceDenom);
         rawTokenSupply = safeAdd(rawTokenSupply, tokenAmount);
         if(bonusNum > 0) {
             tokenBonusAmount = safeDiv(safeMul(tokenAmount, bonusNum), bonusDenom);
@@ -514,7 +516,7 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
             reservationFund.onCrowdsaleEnd();
             bnbWithdrawEnabled = true;
 
-            // Referral
+            // Crowdsale
             uint256 crowdsaleTokenAmount = safeDiv(rawTokenSupply, 10); // 60%
             token.issue(crowdsaleTokenWallet, crowdsaleTokenAmount);
             uint256 suppliedTokenAmount = token.totalSupply();
