@@ -18,7 +18,7 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
     FundState public state = FundState.Crowdsale;
     ManagedToken public token;
 
-    uint256 public constant INITIAL_TAP = 192901234567901; // (wei/sec) == 500 ether/month
+    uint256 public constant INITIAL_TAP = 96450617283950; // (wei/sec) == 250 ether/month
 
     address public teamWallet;
     uint256 public crowdsaleEndDate;

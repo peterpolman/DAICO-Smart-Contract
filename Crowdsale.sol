@@ -72,7 +72,7 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
 
     // BNB
     IERC20Token public bnbToken;
-    uint256 public BNB_HARD_CAP = 300000 ether; // 300K BNB
+    uint256 public BNB_HARD_CAP = 134000 ether; // 134K BNB
     uint256 public BNB_MIN_CONTRIB = 1000 ether; // 1K BNB
     mapping(address => uint256) public bnbContributions;
     uint256 public totalBNBContributed = 0;
