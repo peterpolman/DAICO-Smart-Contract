@@ -10,7 +10,7 @@ import './Pausable.sol';
 import './ISimpleCrowdsale.sol';
 
 
-contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
+contract THXTokenDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
     enum AdditionalBonusState {
         Unavailable,
         Active,
