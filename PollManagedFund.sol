@@ -24,14 +24,14 @@ contract PollManagedFund is Fund, DateTime, ITokenEventListener {
     bool public isWithdrawEnabled = true;
 
     uint256[] public refundPollDates = [
-        1530403200, // 01.07.2018
-        1538352000, // 01.10.2018
         1546300800, // 01.01.2019
         1554076800, // 01.04.2019
         1561939200, // 01.07.2019
         1569888000, // 01.10.2019
         1577836800, // 01.01.2020
         1585699200  // 01.04.2020
+        1593561600, // 01.07.2020
+        1601510400  // 01.10.2020
     ];
 
     modifier onlyTokenHolder() {
