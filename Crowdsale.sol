@@ -21,7 +21,7 @@ contract OpenSocialDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
     uint256 public constant ADDITIONAL_BONUS_DENOM = 100;
 
     uint256 public constant ETHER_MIN_CONTRIB = 0.2 ether;
-    uint256 public constant ETHER_MAX_CONTRIB = 20 ether;
+    uint256 public constant ETHER_MAX_CONTRIB = 100 ether;
 
     uint256 public constant ETHER_MIN_CONTRIB_PRIVATE = 100 ether;
     uint256 public constant ETHER_MAX_CONTRIB_PRIVATE = 3000 ether;
