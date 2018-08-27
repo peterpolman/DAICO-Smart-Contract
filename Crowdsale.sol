@@ -59,7 +59,6 @@ contract THXTokenDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
     mapping(address => uint256) public privateContributions;
 
     address public bnbTokenWallet;
-    address public crowdsaleTokenWallet;
     address public grantsTokenWallet;
     address public advisorsTokenWallet;
     address public companyTokenWallet;
@@ -125,7 +124,6 @@ contract THXTokenDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
         address fundAddress,
         address reservationFundAddress,
         address _bnbTokenWallet,
-        address _crowdsaleTokenWallet,
         address _grantsTokenWallet,
         address _advisorsTokenWallet,
         address _companyTokenWallet,
@@ -144,7 +142,6 @@ contract THXTokenDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
         reservationFund = ICrowdsaleReservationFund(reservationFundAddress);
 
         bnbTokenWallet = _bnbTokenWallet;
-        crowdsaleTokenWallet = _crowdsaleTokenWallet;
         grantsTokenWallet = _grantsTokenWallet;
         advisorsTokenWallet = _advisorsTokenWallet;
         companyTokenWallet = _companyTokenWallet;
@@ -524,9 +521,7 @@ contract THXTokenDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
             bnbWithdrawEnabled = true;
 
             // Crowdsale
-            uint256 crowdsaleTokenAmount = safeDiv(rawTokenSupply, 10); // 60%
-            token.issue(crowdsaleTokenWallet, crowdsaleTokenAmount);
-            uint256 suppliedTokenAmount = token.totalSupply();
+            uint256 suppliedTokenAmount = token.totalSupply(); // 60%
 
             // Company
             uint256 companyTokenAmount = safeDiv(suppliedTokenAmount, 6); // 10%

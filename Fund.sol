@@ -23,7 +23,6 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
     address public teamWallet;
     uint256 public crowdsaleEndDate;
 
-    address public crowdsaleTokenWallet;
     address public grantsTokenWallet;
     address public reserveTokenWallet;
     address public bountyTokenWallet;
@@ -47,7 +46,6 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
     /**
      * @dev Fund constructor
      * @param _teamWallet Withdraw functions transfers ether to this address
-     * @param _crowdsaleTokenWallet Crowdsale wallet address
      * @param _companyTokenWallet Company wallet address
      * @param _reserveTokenWallet Reserve wallet address
      * @param _bountyTokenWallet Bounty wallet address
@@ -56,7 +54,6 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
      */
     constructor(
         address _teamWallet,
-        address _crowdsaleTokenWallet,
         address _grantsTokenWallet,
         address _companyTokenWallet,
         address _reserveTokenWallet,
@@ -67,7 +64,6 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
     ) public
     {
         teamWallet = _teamWallet;
-        crowdsaleTokenWallet = _crowdsaleTokenWallet;
         grantsTokenWallet = _grantsTokenWallet;
         companyTokenWallet = _companyTokenWallet;
         reserveTokenWallet = _reserveTokenWallet;
@@ -218,7 +214,6 @@ contract Fund is ICrowdsaleFund, SafeMath, MultiOwnable {
         token.destroy(reserveTokenWallet, token.balanceOf(reserveTokenWallet));
         token.destroy(grantsTokenWallet, token.balanceOf(grantsTokenWallet));
         token.destroy(bountyTokenWallet, token.balanceOf(bountyTokenWallet));
-        token.destroy(crowdsaleTokenWallet, token.balanceOf(crowdsaleTokenWallet));
         token.destroy(advisorTokenWallet, token.balanceOf(advisorTokenWallet));
         emit RefundEnabled(msg.sender);
     }

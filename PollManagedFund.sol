@@ -50,7 +50,6 @@ contract PollManagedFund is Fund, DateTime, ITokenEventListener {
      */
     constructor(
         address _teamWallet,
-        address _crowdsaleTokenWallet,
         address _grantsTokenWallet,
         address _companyTokenWallet,
         address _reserveTokenWallet,
@@ -59,7 +58,7 @@ contract PollManagedFund is Fund, DateTime, ITokenEventListener {
         address _refundManager,
         address[] _owners
         ) public
-    Fund(_teamWallet, _crowdsaleTokenWallet, _grantsTokenWallet, _companyTokenWallet, _reserveTokenWallet, _bountyTokenWallet, _advisorTokenWallet, _refundManager, _owners)
+    Fund(_teamWallet, _grantsTokenWallet, _companyTokenWallet, _reserveTokenWallet, _bountyTokenWallet, _advisorTokenWallet, _refundManager, _owners)
     {
     }
 
