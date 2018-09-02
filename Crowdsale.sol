@@ -29,15 +29,15 @@ contract THXTokenDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
     uint256 public constant ETHER_MIN_CONTRIB_USA = 0.2 ether;
     uint256 public constant ETHER_MAX_CONTRIB_USA = 20 ether;
 
-    uint256 public constant SALE_START_TIME = 1535925600; // Mon, 03 Sep 2018 00:00:00 +0200
-    uint256 public constant SALE_END_TIME = 1538344800; // Mon, 01 Oct 2018 00:00:00 +0200
+    uint256 public constant SALE_START_TIME = 1542578400; // Mon, 19 Nov 2018 00:00:00 +0200
+    uint256 public constant SALE_END_TIME = 1544392800; // Mon, 10 Dec 2018 00:00:00 +0200
 
-    uint256 public constant PRIVATE_SALE_START_TIME = 1532296800; // Mon, 23 Jul 2018 00:00:00 +0200
-    uint256 public constant PRIVATE_SALE_END_TIME = 1533506400; // Mon, 06 Aug 2018 00:00:00 +0200
+    uint256 public constant PRIVATE_SALE_START_TIME = 1539554400; // Mon, 15 Oct 2018 00:00:00 +0200
+    uint256 public constant PRIVATE_SALE_END_TIME = 1540159200; // Mon, 22 Oct 2018 00:00:00 +0200
 
     uint256 public constant BONUS_WINDOW_1_END_TIME = SALE_START_TIME + 7 days;
     uint256 public constant BONUS_WINDOW_2_END_TIME = SALE_START_TIME + 14 days;
-    uint256 public constant BONUS_WINDOW_3_END_TIME = SALE_START_TIME + 21 days;
+    /* uint256 public constant BONUS_WINDOW_3_END_TIME = SALE_START_TIME + 21 days; */
 
     uint256 public constant MAX_CONTRIB_CHECK_END_TIME = SALE_START_TIME + 1 days;
 
@@ -287,9 +287,9 @@ contract THXTokenDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
         if(now < BONUS_WINDOW_1_END_TIME) {
             numerator = 100;
         } else if(now < BONUS_WINDOW_2_END_TIME) {
-            numerator = 75;
-        } else if(now < BONUS_WINDOW_3_END_TIME) {
             numerator = 50;
+        /* } else if(now < BONUS_WINDOW_3_END_TIME) {
+            numerator = 50; */
         } else {
             numerator = 0;
         }
