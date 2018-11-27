@@ -29,15 +29,15 @@ contract THXTokenDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
     uint256 public constant ETHER_MIN_CONTRIB_USA = 0.2 ether;
     uint256 public constant ETHER_MAX_CONTRIB_USA = 20 ether;
 
-    uint256 public constant SALE_START_TIME = 1542578400; // Mon, 19 Nov 2018 00:00:00 +0200
-    uint256 public constant SALE_END_TIME = 1544392800; // Mon, 10 Dec 2018 00:00:00 +0200
+    uint256 public constant SALE_START_TIME = 1551996000; // Friday, 08-Mar-2019 00:00:00 GMT+0200
+    uint256 public constant SALE_END_TIME = 1554415200; // Friday, 05-Apr-2019 00:00:00 GMT+0200
 
-    uint256 public constant PRIVATE_SALE_START_TIME = 1539554400; // Mon, 15 Oct 2018 00:00:00 +0200
-    uint256 public constant PRIVATE_SALE_END_TIME = 1540159200; // Mon, 22 Oct 2018 00:00:00 +0200
+    uint256 public constant PRIVATE_SALE_START_TIME = 1551391200; // Friday, 01-Mar-2019 00:00:00 GMT+0200
+    uint256 public constant PRIVATE_SALE_END_TIME = 1551996000; // Friday, 08-Mar-2019 00:00:00 GMT+0200
 
     uint256 public constant BONUS_WINDOW_1_END_TIME = SALE_START_TIME + 7 days;
     uint256 public constant BONUS_WINDOW_2_END_TIME = SALE_START_TIME + 14 days;
-    /* uint256 public constant BONUS_WINDOW_3_END_TIME = SALE_START_TIME + 21 days; */
+    uint256 public constant BONUS_WINDOW_3_END_TIME = SALE_START_TIME + 21 days;
 
     uint256 public constant MAX_CONTRIB_CHECK_END_TIME = SALE_START_TIME + 1 days;
 
@@ -285,11 +285,11 @@ contract THXTokenDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
         uint256 denominator = 1000;
 
         if(now < BONUS_WINDOW_1_END_TIME) {
-            numerator = 100;
+            numerator = 200;
         } else if(now < BONUS_WINDOW_2_END_TIME) {
+            numerator = 100;
+        } else if(now < BONUS_WINDOW_3_END_TIME) {
             numerator = 50;
-        /* } else if(now < BONUS_WINDOW_3_END_TIME) {
-            numerator = 50; */
         } else {
             numerator = 0;
         }
@@ -449,11 +449,11 @@ contract THXTokenDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
     }
 
     /**
-     * @dev Process ether contribution from address in privilegedList. Add 20% bonus and issue tokens to contributor.
+     * @dev Process ether contribution from address in privilegedList. Add 30% bonus and issue tokens to contributor.
      */
     function processPrivateSaleContribution(address contributor, uint256 amount) private checkPrivateSaleTime checkContribution checkPrivateSaleCap {
         bool additionalBonusApplied = false;
-        uint256 bonusNum = 25; // translates into 25% more tokens for the amount of ETH
+        uint256 bonusNum = 30; // translates into 30% more tokens for the amount of ETH
         uint256 bonusDenom = 100;
         uint256 tokenBonusAmount = 0;
 
