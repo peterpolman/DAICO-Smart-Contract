@@ -537,7 +537,7 @@ contract THXTokenDAICO is Ownable, SafeMath, Pausable, ISimpleCrowdsale {
             uint256 advisorsTokenAmount = safeDiv(suppliedTokenAmount, 30); // 2%
             token.issue(advisorsTokenWallet, advisorsTokenAmount);
 
-            // Foundation
+            // Grants
             uint256 grantsTokenAmount = safeDiv(suppliedTokenAmount, 30); // 2%
             token.issue(address(lockedTokens), grantsTokenAmount);
             lockedTokens.addTokens(grantsTokenWallet, grantsTokenAmount, now + 365 days);
